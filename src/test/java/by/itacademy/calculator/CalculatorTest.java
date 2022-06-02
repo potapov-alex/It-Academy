@@ -8,8 +8,9 @@ public class CalculatorTest
 {
 
     @Test
-    public void shouldAnswerWithTrue()
+    public void shouldScanNumber()
     {
+
         assertTrue( true );
     }
 }
