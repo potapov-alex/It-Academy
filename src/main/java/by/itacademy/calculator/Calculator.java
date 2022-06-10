@@ -2,14 +2,13 @@ package by.itacademy.calculator;
 
 import java.util.Scanner;
 
-import static by.itacademy.calculator.MyMath.*;
+import static by.itacademy.calculator.MathUtils.*;
 
 public class Calculator {
     static Scanner scanner = new Scanner(System.in);
     private static double number1;
     private static double number2;
     private static char expression;
-
 
     public static void main(String[] args) {
         calculating();

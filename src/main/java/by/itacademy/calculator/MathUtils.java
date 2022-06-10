@@ -2,7 +2,7 @@ package by.itacademy.calculator;
 
 import static by.itacademy.calculator.Calculator.calculating;
 
-public class MyMath {
+public class MathUtils {
     static char expression = Calculator.getExpression();
     public static double add(double number1, double number2) {
         return number1 + number2;

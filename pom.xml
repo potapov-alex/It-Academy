@@ -8,7 +8,7 @@
   <artifactId>itacademy</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>itacademy</name>
+  <name>it_academy</name>
   <url>https://www.it-academy.by</url>
 
   <properties>
@@ -18,6 +18,11 @@
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-surefire-plugin</artifactId>
+      <version>3.0.0-M6</version>
+    </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
