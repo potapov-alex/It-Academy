@@ -55,10 +55,17 @@ public class Calculator {
 
     public static char setExpression(String message) {
         Calculator.expression = expression;
-        do {
-            System.out.println(message);
-            expression = scanner.next().charAt(0);
-        } while (expression != '+' && expression != '-' && expression != '*' && expression != '/');
+        String string;
+        while (true) {
+            System.out.println("\n " + message);
+            string = scanner.nextLine();
+            if ((string.length() == 1 && string.equals("+")) || (string.length() == 1 && string.equals("-")) ||
+                    (string.length() == 1 && string.equals("*")) || (string.length() == 1 && string.equals("/"))) {
+                break;
+            }
+            System.out.println("Incorrect input. " + message);
+        }
+        expression = string.charAt(0);
         return expression;
     }
 
