@@ -1,7 +1,6 @@
 package by.itacademy.calculator;
 
 import java.util.Scanner;
-
 import static by.itacademy.calculator.MathUtils.*;
 
 public class Calculator {
@@ -16,11 +15,9 @@ public class Calculator {
 
     public static void calculating() {
         double result = 0;
-
         number1 = setNumber("Enter first number: ");
         setExpression("Enter transaction: (e.g. '+' , '-' , '*' or '/' )");
         number2 = setNumber("Enter second number: ");
-
         switch (expression) {
             case '+':
                 result = add(number1, number2);
@@ -58,9 +55,8 @@ public class Calculator {
         String string;
         while (true) {
             System.out.println("\n " + message);
-            string = scanner.nextLine();
-            if ((string.length() == 1 && string.equals("+")) || (string.length() == 1 && string.equals("-")) ||
-                    (string.length() == 1 && string.equals("*")) || (string.length() == 1 && string.equals("/"))) {
+            string = scanner.next();
+            if (string.length() == 1 && expressionCheck(string)==true) {
                 break;
             }
             System.out.println("Incorrect input. " + message);
@@ -71,5 +67,11 @@ public class Calculator {
 
     public static char getExpression() {
         return expression;
+    }
+
+    public static boolean expressionCheck(String expression){
+        if (expression.equals("+") || expression.equals("-") || expression.equals("*") ||expression.equals("/"))
+            return true;
+        else return false;
     }
 }
