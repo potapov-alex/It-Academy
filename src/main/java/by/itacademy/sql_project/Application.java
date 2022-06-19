@@ -1,22 +1,29 @@
 package by.itacademy.sql_project;
 
+import by.itacademy.sql_project.services.account_services.Account;
+import by.itacademy.sql_project.services.user_services.User;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import static by.itacademy.sql_project.UserInput.enterUser;
-import static by.itacademy.sql_project.UserQuery.addUser;
+import static by.itacademy.sql_project.services.account_services.AccountInput.enterAccount;
+import static by.itacademy.sql_project.services.account_services.AccountQuery.addAccount;
+import static by.itacademy.sql_project.services.user_services.UserInput.enterUser;
+import static by.itacademy.sql_project.services.user_services.UserQuery.addUser;
+import static by.itacademy.sql_project.services.user_services.UserQuery.getUser;
 
 public class Application {
 
     public static final String JDBC_DRIVER_PATH = "org.sqlite.JDBC";
     private static final String DATABASE_URL =
-            "jdbc:sqlite:F:/javaCoding/itacademy/src/main/java/by/itacademy/database/UserDB.db";
+            "jdbc:sqlite:F:/javaCoding/itacademy/src/main/java/by/itacademy/sql_project/database/UserDB.db";
+    public static Connection connection;
 
     public static void main(String[] args) throws SQLException {
         if (isDriverExists()) {
-            Connection connection = DriverManager.getConnection(DATABASE_URL);
+            connection = DriverManager.getConnection(DATABASE_URL);
             int actionCode;
             do {
                 printMenu();
@@ -24,13 +31,17 @@ public class Application {
                 switch (actionCode) {
                     case 1:
                         User user = enterUser();
-                        addUser(user,connection);
+                        addUser(user, connection);
                         break;
-                   /* case 2:
-                        Developer developer = enterDeveloper();
-                        addDeveloper(developer, connection);
+                    case 2:
+                        System.out.println("Users list is: ");
+                        getUser();
+                        System.out.println("Select an user to create account");
+                        int userId = new Scanner(System.in).nextInt();
+                        Account account = enterAccount();
+                        addAccount(account, connection);
                         break;
-                    case 3:
+                   /* case 3:
                         System.out.println("Enter the Developer's ID: ");
                         int idForDelete = new Scanner(System.in).nextInt();
                         deleteDeveloper(idForDelete, connection);
@@ -46,7 +57,6 @@ public class Application {
                     default:
                         System.out.println("Unknown option. Please enter again");
                 }
-
             } while (!"5".equals(actionCode));
             connection.close();
         }

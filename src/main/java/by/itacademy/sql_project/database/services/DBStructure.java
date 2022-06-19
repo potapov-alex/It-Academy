@@ -37,7 +37,7 @@ public class DBStructure {
                                 "(accountId INTEGER PRIMARY KEY AUTOINCREMENT," +
                                 "userId INTEGER (10) REFERENCES Users (userId)," +
                                 "accountBalance  DOUBLE (15)," +
-                                "accountCurrency VARCHAR (3))";
+                                "accountCurrency VARCHAR (3) UNIQUE)";
                         statement.executeUpdate(sql);
                         System.out.println("Created table Accounts in database UserDB.db");
                         sql = "CREATE TABLE Transactions" +
