@@ -10,11 +10,13 @@ public class AccountInput {
         boolean valid = true;
         do {
             try {
-                System.out.println("Enter username: ");
+                System.out.println("Enter userId: ");
+                account.setAccountId(scanner.nextInt());
+                System.out.println("Enter currency: ");
+                account.setCurrency(scanner.nextLine());
             } catch (Exception e) {
                 System.out.println("Invalid data, Try again");
             }
-
         } while (!valid);
         return account;
     }

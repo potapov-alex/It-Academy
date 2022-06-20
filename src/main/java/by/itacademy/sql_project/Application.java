@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import static by.itacademy.sql_project.services.account_services.AccountInput.enterAccount;
 import static by.itacademy.sql_project.services.account_services.AccountQuery.addAccount;
+import static by.itacademy.sql_project.services.account_services.AccountQuery.getAccount;
 import static by.itacademy.sql_project.services.user_services.UserInput.enterUser;
 import static by.itacademy.sql_project.services.user_services.UserQuery.addUser;
 import static by.itacademy.sql_project.services.user_services.UserQuery.getUser;
@@ -36,8 +37,9 @@ public class Application {
                     case 2:
                         System.out.println("Users list is: ");
                         getUser();
-                        System.out.println("Select an user to create account");
-                        int userId = new Scanner(System.in).nextInt();
+                        System.out.println("Select an user ID to create account");
+                      //  int userId = new Scanner(System.in).nextInt();
+                      //  getAccount();
                         Account account = enterAccount();
                         addAccount(account, connection);
                         break;
