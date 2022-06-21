@@ -12,8 +12,7 @@ import static by.itacademy.sql_project.services.account_services.AccountInput.en
 import static by.itacademy.sql_project.services.account_services.AccountQuery.addAccount;
 import static by.itacademy.sql_project.services.account_services.AccountQuery.getAccount;
 import static by.itacademy.sql_project.services.user_services.UserInput.enterUser;
-import static by.itacademy.sql_project.services.user_services.UserQuery.addUser;
-import static by.itacademy.sql_project.services.user_services.UserQuery.getUser;
+import static by.itacademy.sql_project.services.user_services.UserQuery.*;
 
 public class Application {
 
@@ -38,10 +37,12 @@ public class Application {
                         System.out.println("Users list is: ");
                         getUser();
                         System.out.println("Select an user ID to create account");
-                      //  int userId = new Scanner(System.in).nextInt();
-                      //  getAccount();
-                        Account account = enterAccount();
-                        addAccount(account, connection);
+                        int userId = new Scanner(System.in).nextInt();
+                        System.out.println("Enter accounts currency");
+                        String currency = new Scanner(System.in).nextLine();
+                        getAccount(userId);
+                        Account account = enterAccount(userId, currency);
+                        addAccount(account, connection, userId, currency);
                         break;
                    /* case 3:
                         System.out.println("Enter the Developer's ID: ");
@@ -52,14 +53,14 @@ public class Application {
                         System.out.println("Enter the Developer's ID: ");
                         int idForUpdate = new Scanner(System.in).nextInt();
                         updateDeveloper(idForUpdate, enterDeveloper(), connection);
-                        break;
+                        break;*/
                     case 5:
                         System.out.println("Thanks for using the program!");
-                        break; */
+                        break;
                     default:
                         System.out.println("Unknown option. Please enter again");
                 }
-            } while (!"5".equals(actionCode));
+            } while (actionCode == 5);
             connection.close();
         }
     }

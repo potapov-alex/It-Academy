@@ -4,16 +4,13 @@ import java.util.Scanner;
 
 public class AccountInput {
 
-    public static Account enterAccount() {
+    public static Account enterAccount(int userId, String currency) {
         Account account = new Account();
-        Scanner scanner = new Scanner(System.in);
         boolean valid = true;
         do {
             try {
-                System.out.println("Enter userId: ");
-                account.setAccountId(scanner.nextInt());
-                System.out.println("Enter currency: ");
-                account.setCurrency(scanner.nextLine());
+                account.setUserId(userId);
+                account.setCurrency(currency);
             } catch (Exception e) {
                 System.out.println("Invalid data, Try again");
             }

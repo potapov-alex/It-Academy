@@ -37,7 +37,7 @@ public class DBStructure {
                                 "(accountId INTEGER PRIMARY KEY AUTOINCREMENT," +
                                 "userId INTEGER (10) REFERENCES Users (userId)," +
                                 "accountBalance  DOUBLE (15) DEFAULT (0)," +
-                                "accountCurrency VARCHAR (3) UNIQUE)";
+                                "accountCurrency VARCHAR (10))";
                         statement.executeUpdate(sql);
                         System.out.println("Created table Accounts in database UserDB.db");
                         sql = "CREATE TABLE Transactions" +
@@ -48,9 +48,6 @@ public class DBStructure {
                         System.out.println("Created table Transactions in database UserDB.db");
                     } catch (SQLException e) {
                         e.printStackTrace();
-                    } finally {
-                        statement.close();
-                        connection.close();
                     }
                     break;
                 case 2:
@@ -66,15 +63,13 @@ public class DBStructure {
                         System.out.println("Drop table Transactions in database UserDB.db");
                     } catch (SQLException e) {
                         e.printStackTrace();
-                    } finally {
-                        statement.close();
-                        connection.close();
                     }
                     break;
                 default:
                     System.out.println("Unknown option. Please enter again");
             }
-        } while (!"5".equals(actionCode));
+        } while (actionCode == 5);
+        statement.close();
         connection.close();
     }
 
