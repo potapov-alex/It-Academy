@@ -28,14 +28,4 @@ public class UserQuery {
         resultSet.close();
         statement.close();
     }
-
-    public static String getUserName(int userId) throws SQLException {
-        String SQL_FIND_USER_NAME = "SELECT userName FROM Users WHERE userId = " + userId + ";";
-        PreparedStatement statement =
-                connection.prepareStatement(SQL_FIND_USER_NAME);
-        ResultSet resultSet = statement.executeQuery();
-        String name = resultSet.getString("userName");
-        System.out.println(name);
-        return name;
-    }
 }

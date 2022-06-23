@@ -1,6 +1,7 @@
 package by.itacademy.sql_project;
 
 import by.itacademy.sql_project.services.account_services.Account;
+import by.itacademy.sql_project.services.transaction_services.Transaction;
 import by.itacademy.sql_project.services.user_services.User;
 
 import java.sql.Connection;
@@ -9,10 +10,12 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import static by.itacademy.sql_project.services.account_services.AccountInput.enterAccount;
-import static by.itacademy.sql_project.services.account_services.AccountQuery.addAccount;
-import static by.itacademy.sql_project.services.account_services.AccountQuery.getAccount;
+import static by.itacademy.sql_project.services.account_services.AccountQuery.*;
+import static by.itacademy.sql_project.services.transaction_services.TransactionInput.enterTransaction;
+import static by.itacademy.sql_project.services.transaction_services.TransactionQuery.*;
 import static by.itacademy.sql_project.services.user_services.UserInput.enterUser;
-import static by.itacademy.sql_project.services.user_services.UserQuery.*;
+import static by.itacademy.sql_project.services.user_services.UserQuery.addUser;
+import static by.itacademy.sql_project.services.user_services.UserQuery.getUser;
 
 public class Application {
 
@@ -22,6 +25,8 @@ public class Application {
     public static Connection connection;
 
     public static void main(String[] args) throws SQLException {
+        boolean checkTransaction = false;
+        boolean checkBalance = false;
         if (isDriverExists()) {
             connection = DriverManager.getConnection(DATABASE_URL);
             int actionCode;
@@ -37,23 +42,50 @@ public class Application {
                         System.out.println("Users list is: ");
                         getUser();
                         System.out.println("Select an user ID to create account");
-                        int userId = new Scanner(System.in).nextInt();
+                        int accountUsersId = new Scanner(System.in).nextInt();
                         System.out.println("Enter accounts currency");
                         String currency = new Scanner(System.in).nextLine();
-                        getAccount(userId);
-                        Account account = enterAccount(userId, currency);
-                        addAccount(account, connection, userId, currency);
+                        Account account = enterAccount(accountUsersId, currency);
+                        currencyCheck(account, accountUsersId, currency);
                         break;
-                   /* case 3:
-                        System.out.println("Enter the Developer's ID: ");
-                        int idForDelete = new Scanner(System.in).nextInt();
-                        deleteDeveloper(idForDelete, connection);
+                    case 3:
+                        System.out.println("Users list is: ");
+                        getUser();
+                        System.out.println("Select an user ID to account replenishment");
+                        int replUsersId = new Scanner(System.in).nextInt();
+                        getAccount(replUsersId);
+                        System.out.println("Select an account ID to account replenishment");
+                        int replAcc = new Scanner(System.in).nextInt();
+                        double replBalance = getBalance(replAcc);
+                        System.out.println("account balance = " + replBalance);
+                        System.out.println("enter replenishment volume");
+                        double replenishmentVolume = new Scanner(System.in).nextInt();
+                        checkTransaction = checkTransaction(replenishmentVolume);
+                        checkBalance = checkBalance(replUsersId, replenishmentVolume);
+                        if (checkTransaction == true && checkBalance == true) {
+                            Transaction transaction = enterTransaction(replAcc, replenishmentVolume);
+                            accountReplenishment(transaction, replAcc, replenishmentVolume);
+                        }
                         break;
                     case 4:
-                        System.out.println("Enter the Developer's ID: ");
-                        int idForUpdate = new Scanner(System.in).nextInt();
-                        updateDeveloper(idForUpdate, enterDeveloper(), connection);
-                        break;*/
+                        System.out.println("Users list is: ");
+                        getUser();
+                        System.out.println("Select an user ID to account withdrawal");
+                        int withdrUsersId = new Scanner(System.in).nextInt();
+                        getAccount(withdrUsersId);
+                        System.out.println("Select an account ID to account replenishment");
+                        int withdrAcc = new Scanner(System.in).nextInt();
+                        double balance = getBalance(withdrAcc);
+                        System.out.println("account balance = " + balance);
+                        System.out.println("enter replenishment volume");
+                        double withdrawalVolume = new Scanner(System.in).nextInt();
+                        checkTransaction = checkTransaction(withdrawalVolume);
+                        checkBalance = checkBalance(withdrUsersId, withdrawalVolume);
+                        if (checkTransaction == true && checkBalance == true) {
+                            Transaction transaction = enterTransaction(withdrAcc, -withdrawalVolume);
+                            accountWithdrawal(transaction, withdrAcc, withdrawalVolume);
+                        }
+                        break;
                     case 5:
                         System.out.println("Thanks for using the program!");
                         break;
