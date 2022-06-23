@@ -8,7 +8,6 @@ import static java.lang.String.format;
 public class AccountQuery {
 
     public static void addAccount(Account account, Connection connection) throws SQLException {
-
         Statement statement = connection.createStatement();
         statement.executeUpdate(format("INSERT INTO Accounts (userId, accountCurrency) VALUES('%d', '%s')",
                 account.getUserId(), account.getCurrency()));

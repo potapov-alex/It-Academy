@@ -19,7 +19,6 @@ public class DBStructure {
             connection = DriverManager.getConnection(DATABASE_URL);
             statement = connection.createStatement();
         }
-
         int actionCode;
         do {
             printMenu();
