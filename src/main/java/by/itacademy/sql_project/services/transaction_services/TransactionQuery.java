@@ -10,15 +10,15 @@ public class TransactionQuery {
 
     public static void addTransaction(Transaction transaction, Connection connection) throws SQLException {
         Statement statement = connection.createStatement();
-        statement.executeUpdate(format("INSERT INTO Transactions (accountId, transactionAmount) VALUES('%d', '%f')",
-                transaction.getAccountId(), transaction.getTransactionAmount()));
+        statement.executeUpdate(format("INSERT INTO Transactions (accountId, amount) VALUES('%d', '%f')",
+                transaction.getAccountId(), transaction.getAmount()));
         statement.close();
     }
 
     public static void accountReplenishment(Transaction transaction, int accountId, double amount) throws SQLException {
         double userBalance = getBalance(accountId);
         double exchangedBalance = userBalance + amount;
-        String SQL_ACC_REPL = "UPDATE Accounts SET accountBalance = " + exchangedBalance + "  WHERE accountId = " + accountId + ";";
+        String SQL_ACC_REPL = "UPDATE Accounts SET balance = " + exchangedBalance + "  WHERE accountId = " + accountId + ";";
         Statement statement = connection.createStatement();
         statement.executeUpdate(SQL_ACC_REPL);
         addTransaction(transaction, connection);
@@ -27,7 +27,7 @@ public class TransactionQuery {
     public static void accountWithdrawal(Transaction transaction, int accountId, double amount) throws SQLException {
         double userBalance = getBalance(accountId);
         double exchangedBalance = userBalance - amount;
-        String SQL_ACC_REPL = "UPDATE Accounts SET accountBalance = " + exchangedBalance + "  WHERE accountId = " + accountId + ";";
+        String SQL_ACC_REPL = "UPDATE Accounts SET balance = " + exchangedBalance + "  WHERE accountId = " + accountId + ";";
         Statement statement = connection.createStatement();
         statement.executeUpdate(SQL_ACC_REPL);
         addTransaction(transaction, connection);

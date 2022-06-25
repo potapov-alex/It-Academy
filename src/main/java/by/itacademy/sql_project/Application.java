@@ -21,7 +21,7 @@ public class Application {
 
     public static final String JDBC_DRIVER_PATH = "org.sqlite.JDBC";
     private static final String DATABASE_URL =
-            "jdbc:sqlite:F:/javaCoding/itacademy/src/main/java/by/itacademy/sql_project/database/UserDB.db";
+            "jdbc:sqlite:/home/alexey/coding/It-Academy/src/main/java/by/itacademy/sql_project/database/UserDB.db";
     public static Connection connection;
 
     public static void main(String[] args) throws SQLException {
@@ -61,7 +61,7 @@ public class Application {
                         System.out.println("enter replenishment volume");
                         double replenishmentVolume = new Scanner(System.in).nextInt();
                         checkTransaction = checkTransaction(replenishmentVolume);
-                        checkBalance = checkBalance(replUsersId, replenishmentVolume);
+                        checkBalance = checkReplenishmentBalance(replUsersId, replenishmentVolume);
                         if (checkTransaction == true && checkBalance == true) {
                             Transaction transaction = enterTransaction(replAcc, replenishmentVolume);
                             accountReplenishment(transaction, replAcc, replenishmentVolume);
@@ -80,7 +80,7 @@ public class Application {
                         System.out.println("enter replenishment volume");
                         double withdrawalVolume = new Scanner(System.in).nextInt();
                         checkTransaction = checkTransaction(withdrawalVolume);
-                        checkBalance = checkBalance(withdrUsersId, withdrawalVolume);
+                        checkBalance = checkWithdrawalBalance(withdrUsersId, withdrawalVolume);
                         if (checkTransaction == true && checkBalance == true) {
                             Transaction transaction = enterTransaction(withdrAcc, -withdrawalVolume);
                             accountWithdrawal(transaction, withdrAcc, withdrawalVolume);

@@ -3,7 +3,7 @@ package by.itacademy.sql_project.services.transaction_services;
 public class Transaction {
     int transactionId;
     int accountId;
-    double transactionAmount;
+    double amount;
 
     public int getTransactionId() {
         return transactionId;
@@ -21,11 +21,11 @@ public class Transaction {
         this.accountId = accountId;
     }
 
-    public double getTransactionAmount() {
-        return transactionAmount;
+    public double getAmount() {
+        return amount;
     }
 
-    public void setTransactionAmount(double transactionAmount) {
-        this.transactionAmount = transactionAmount;
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 }

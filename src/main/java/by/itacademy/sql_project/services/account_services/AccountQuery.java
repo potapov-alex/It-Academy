@@ -9,19 +9,19 @@ public class AccountQuery {
 
     public static void addAccount(Account account, Connection connection) throws SQLException {
         Statement statement = connection.createStatement();
-        statement.executeUpdate(format("INSERT INTO Accounts (userId, accountCurrency) VALUES('%d', '%s')",
+        statement.executeUpdate(format("INSERT INTO Accounts (userId, currency) VALUES('%d', '%s')",
                 account.getUserId(), account.getCurrency()));
         statement.close();
     }
 
     public static ResultSet getAccount(int usersId) throws SQLException {
-        String SQL_FIND_USER_ACCOUNT = "SELECT accountId, accountCurrency FROM Accounts WHERE userId = " + usersId + " ;";
+        String SQL_FIND_USER_ACCOUNT = "SELECT accountId, currency FROM Accounts WHERE userId = " + usersId + " ;";
         PreparedStatement statement =
                 connection.prepareStatement(SQL_FIND_USER_ACCOUNT, usersId);
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
             System.out.println('\n' + "accountId: " + resultSet.getInt("accountId"));
-            System.out.println("currency: " + resultSet.getString("accountCurrency") + '\n');
+            System.out.println("currency: " + resultSet.getString("currency") + '\n');
         }
         resultSet.close();
         statement.close();
@@ -29,13 +29,13 @@ public class AccountQuery {
     }
 
     public static void currencyCheck(Account account, int usersId, String currency) throws SQLException {
-        String SQL_GET_CURR = "SELECT accountId, accountCurrency FROM Accounts WHERE userId = " + usersId + ";";
+        String SQL_GET_CURR = "SELECT accountId, currency FROM Accounts WHERE userId = " + usersId + ";";
         PreparedStatement statement =
                 connection.prepareStatement(SQL_GET_CURR);
         ResultSet resultSet = statement.executeQuery();
         boolean isCurrencyExist = true;
         while (resultSet.next()) {
-            if (resultSet.getString("accountCurrency").equals(currency)) {
+            if (resultSet.getString("currency").equals(currency)) {
                 isCurrencyExist = false;
             }
         }
@@ -51,18 +51,28 @@ public class AccountQuery {
 
     public static double getBalance(int accountId) throws SQLException {
         double balance = 0;
-        String SQL_GET_CURR = "SELECT accountBalance FROM Accounts WHERE accountId = " + accountId + ";";
+        String SQL_GET_CURR = "SELECT balance FROM Accounts WHERE accountId = " + accountId + ";";
         PreparedStatement statement =
                 connection.prepareStatement(SQL_GET_CURR);
         ResultSet resultSet = statement.executeQuery();
-        balance = resultSet.getDouble("accountBalance");
+        balance = resultSet.getDouble("balance");
         return balance;
     }
 
-    public static boolean checkBalance(int userId, double volume) throws SQLException {
+    public static boolean checkReplenishmentBalance(int userId, double volume) throws SQLException {
         boolean checkBalance = false;
         double userBalance = getBalance(userId);
-        if ((userBalance - volume) < 0 || (userBalance + volume) > 2_000_000_000) {
+        if ((userBalance + volume) > 2_000_000_000) {
+            System.out.println("the account volume exceeds the allowable");
+        } else {
+            checkBalance = true;
+        }
+        return checkBalance;
+    }
+    public static boolean checkWithdrawalBalance(int userId, double volume) throws SQLException {
+        boolean checkBalance = false;
+        double userBalance = getBalance(userId);
+        if ((userBalance - volume) < 0) {
             System.out.println("the account volume exceeds the allowable");
         } else {
             checkBalance = true;

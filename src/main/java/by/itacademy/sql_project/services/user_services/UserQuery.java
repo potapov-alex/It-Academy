@@ -11,7 +11,7 @@ public class UserQuery {
 
     public static void addUser(User user, Connection connection) throws SQLException {
         Statement statement = connection.createStatement();
-        statement.executeUpdate(format("INSERT INTO Users (userName, userAddress) VALUES('%s', '%s')",
+        statement.executeUpdate(format("INSERT INTO Users (name, address) VALUES('%s', '%s')",
                 user.getName(), user.getAddress()));
         statement.close();
     }
@@ -22,8 +22,8 @@ public class UserQuery {
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
             System.out.println('\n' + "id: " + resultSet.getInt("userId"));
-            System.out.println("name: " + resultSet.getString("userName"));
-            System.out.println("address: " + resultSet.getString("userAddress") + '\n');
+            System.out.println("name: " + resultSet.getString("name"));
+            System.out.println("address: " + resultSet.getString("address") + '\n');
         }
         resultSet.close();
         statement.close();

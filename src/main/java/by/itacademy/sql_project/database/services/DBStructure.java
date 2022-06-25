@@ -10,7 +10,7 @@ public class DBStructure {
 
     public static final String JDBC_DRIVER_PATH = "org.sqlite.JDBC";
     private static final String DATABASE_URL =
-            "jdbc:sqlite:F:/javaCoding/itacademy/src/main/java/by/itacademy/sql_project/database/UserDB.db";
+            "jdbc:sqlite:/home/alexey/coding/It-Academy/src/main/java/by/itacademy/sql_project/database/UserDB.db";
     public static Connection connection;
     public static Statement statement;
 
@@ -28,21 +28,21 @@ public class DBStructure {
                     try {
                         String sql = "CREATE TABLE Users" +
                                 "(userId INTEGER PRIMARY KEY AUTOINCREMENT," +
-                                "userName VARCHAR(50)," +
-                                "userAddress VARCHAR(255))";
+                                "name VARCHAR(50)," +
+                                "address VARCHAR(255))";
                         statement.executeUpdate(sql);
                         System.out.println("Created table Users in database UserDB.db");
                         sql = "CREATE TABLE Accounts" +
                                 "(accountId INTEGER PRIMARY KEY AUTOINCREMENT," +
                                 "userId INTEGER (10) REFERENCES Users (userId)," +
-                                "accountBalance  DOUBLE (15) DEFAULT (0)," +
-                                "accountCurrency VARCHAR (10))";
+                                "balance  DOUBLE (15.0) DEFAULT (0)," +
+                                "currency VARCHAR (10))";
                         statement.executeUpdate(sql);
                         System.out.println("Created table Accounts in database UserDB.db");
                         sql = "CREATE TABLE Transactions" +
                                 "(transactionId INTEGER PRIMARY KEY AUTOINCREMENT," +
                                 "accountId INTEGER (10) REFERENCES Accounts (accountId)," +
-                                "transactionAmount DOUBLE (15))";
+                                "amount DOUBLE (15.0))";
                         statement.executeUpdate(sql);
                         System.out.println("Created table Transactions in database UserDB.db");
                     } catch (SQLException e) {
