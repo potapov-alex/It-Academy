@@ -1,5 +1,0 @@
-test case setExpressionMethodRegressionNegativeTesting
-	if enter expression equals '-4', expression equals '-', expected result: restarting setExpression method.	
-	
-test case calculatingMethodsRegressionPositivePositiveDivideByZeroTesting 
-	after restarting calculating() method saves & sout pervious divide result: 'Infinity'
