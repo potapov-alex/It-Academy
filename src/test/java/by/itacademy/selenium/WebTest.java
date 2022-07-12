@@ -1,12 +1,13 @@
 package by.itacademy.selenium;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,10 +15,12 @@ import java.util.stream.Collectors;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class WebTest {
-    String DRIVER_PATH = "F:\\javaCoding\\itacademy\\src\\test\\java\\by\\itacademy\\selenium\\resources\\chromedriver.exe";
+
+
+    String DRIVER_PATH = "by/itacademy/selenium/resources/chromedriver.exe";
     private WebDriver driver;
 
-    @BeforeClass
+    @BeforeAll
     public void driverInit() {
         System.setProperty("webdriver.chrome.driver", DRIVER_PATH);
         driver = new ChromeDriver();
@@ -25,10 +28,8 @@ public class WebTest {
     }
 
     @Test
-    public void OnlinerOpenTest() {
+    public void OnlinerCatalogTest() {
         driver.get("https://catalog.onliner.by");
-        //assertThat(driver.getTitle()).as("browser title does not contain курсы").contains("Каталог");
-        //WebElement element = driver.findElement(By.xpath(""));
         List<WebElement> elements = driver.findElements(By.xpath("//*[@class='catalog-navigation-classifier__item ']"));
 
         assertThat(getTextFromWebElements(elements)).as("not contain").contains("Электроника");
@@ -41,7 +42,7 @@ public class WebTest {
         return elements.stream().map(el -> el.getText()).collect(Collectors.toList());
     }
 
-    @AfterClass
+    @AfterAll
     public void closeBrowser() {
         driver.quit();
     }
