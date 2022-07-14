@@ -1,23 +1,10 @@
 package by.itacademy.selenium;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-
-
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
 public class WebTest {
 
 
-    String DRIVER_PATH = "by/itacademy/selenium/resources/chromedriver.exe";
+    /*
+    String DRIVER_PATH = "/chromedriver.exe";
     private WebDriver driver;
 
     @BeforeAll
@@ -46,4 +33,5 @@ public class WebTest {
     public void closeBrowser() {
         driver.quit();
     }
+    */
 }
