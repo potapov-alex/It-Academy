@@ -1,10 +1,10 @@
 package by.itacademy.selenium.navigation;
 
-import by.itacademy.selenium.page_object.HomePage;
+import by.itacademy.selenium.page_object.OnlinerHomePage;
 
 public class OnlinerNavigation {
 
     public static void navigateToOnlinerHomePage() {
-    new HomePage().navigate("https://www.onliner.by");
+    new OnlinerHomePage().navigate("https://www.onliner.by");
     }
 }
